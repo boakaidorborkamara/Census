@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Census2008</title>
     <link rel="stylesheet" href="./styles/style.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="container">
@@ -21,8 +24,8 @@
                 
                 <!-- navagation links -->
                     <ul>
-                        <li>Home</li>
-                        <li>Download</li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Download</a></li>
                     </ul>
             
             </nav>
@@ -32,8 +35,8 @@
             <section id="full-population-totals">
                 <!-- this section is about the full population of the entire country including male n female? -->
                 <div class="first-section-totals">
-                    <div>
-                        <p>icon</p>
+                    <div class="icon-box">
+                        <!-- <p>icon</p> -->
                     </div>
                     <div>
                         <p class="population-caption">Total Population</p>
@@ -42,21 +45,21 @@
                 </div>
 
                 <div class="first-section-totals">
-                    <div>
-                        <p>icon</p>
+                    <div class="icon-box">
+                        <img src="./icons/twotone_female_white_48dp.png" alt="female?" class="icon">
                     </div>
                     <div>
-                        <p class="population-caption">Total Population</p>
+                        <p class="population-caption">FEMALE</p>
                         <p class="amount">1,300,000</p>
                     </div>
                 </div>
 
                 <div class="first-section-totals">
-                    <div>
-                        <p>icon</p>
+                    <div class="icon-box">
+                        <img src="./icons/twotone_male_white_48dp.png" alt="female" class="icon">
                     </div>
                     <div>
-                        <p class="population-caption">Total Population</p>
+                        <p class="population-caption">MALE</p>
                         <p class="amount">1,300,000</p>
                     </div>
                 </div>
@@ -71,13 +74,19 @@
 
             </section>
             <section id="district-population-chart-section">
-                <div>
-                    <p>Distribution of Population by District</p>
+                <div id="district-chart-header">
+                    <div class="district-population-label">
+                        <p>Distribution of Population by District</p>
+                    </div>
+                
                     <div>
                         <select name="" id="">
                             <option value="">Montserrado</option>
                         </select>
                     </div>
+                </div>
+                <div id="district-chart-area">
+                    <p>District Chart Area</p>
                 </div>
 
             </section>
