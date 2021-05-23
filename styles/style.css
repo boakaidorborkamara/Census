@@ -14,7 +14,7 @@ body{
 
 a{
     text-decoration: none;
-    color: #012136;
+    color: #519872;
 }
 
 a:hover{
@@ -44,7 +44,7 @@ header{
 #logo{
     /* background-color: red; */
     width: 70%;
-    color: #012136;
+    color: #519872;
     font-size: 1.2em;
 }
 
@@ -66,7 +66,7 @@ nav ul{
 nav  ul li{
     margin-left: 20px;
     text-transform: uppercase;
-    color: #012136;
+    color: #519872;
 }
 
 
@@ -109,7 +109,7 @@ nav  ul li{
 }
 
 .icon-box{
-    background-color: #012136;
+    background-color: #519872;
     width: 50px;
     border-radius: 8px;
     display: flex;
@@ -140,7 +140,7 @@ nav  ul li{
 }
 
 .pie-chart{
-    background-color: #012136;
+    background-color: #519872;
     border-radius: 5px;
     box-shadow: 2px 1px 3px rgb(165, 162, 162);
 }
@@ -184,7 +184,7 @@ nav  ul li{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #012136;
+    /* background-color: #012136; */
     padding: 20px;
     margin-top: 20px;
 }
@@ -197,7 +197,7 @@ nav  ul li{
     height: 15vh;
     justify-content: center;
     align-items: center;
-    background-color: #012136;
+    background-color: #519872;
     border-radius: 5px;
     margin-top: 25px;
     padding: 0px 20px 0px 20px;
@@ -222,11 +222,14 @@ nav  ul li{
 }
 
 #download-icon{
-    background-color: #012136 ;
+    background-color: #519872 ;
     width: 30px;
     height: 30px;
     margin-right: 10px;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #download-icon img{
@@ -248,13 +251,6 @@ nav  ul li{
     box-shadow: 1px 2px 5px rgb(136, 133, 133);
 }
 
-#male-n-female-amount{
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 1px 2px 5px rgb(136, 133, 133);
-}
-
-
 
 #household-header{
     display: grid;
@@ -272,4 +268,33 @@ nav  ul li{
     background-color: #F0F2EF;
     border: 1px solid #828282;
     font-size: 1em;
+}
+
+#household-population-chart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 255px;
+}
+
+#male-n-female-amount{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px rgb(136, 133, 133);
+    padding: 20px;
+}
+
+table{
+    margin-top: 25px;
+    width: 100%;
+    
+}
+
+table, td, thead, th{
+    /* border: 1px solid black; */
+    border-collapse: collapse;
+}
+
+td, th{
+    padding: 5px;
 }
