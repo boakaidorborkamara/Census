@@ -1,0 +1,92 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#container{
+    width: 70%;
+    padding: 35px;
+    background-color:#F0F2EF;
+    border-radius: 1%;
+}
+
+
+/* navigation styling starts */
+
+header{
+    height: 20%;
+    padding: 5px 0px 5px 0px;
+}
+
+
+#logo{
+    /* background-color: red; */
+    width: 70%;
+    color: #519872;
+    font-size: 1.2em;
+}
+
+
+header nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+nav ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    
+}
+
+nav  ul li{
+    margin-left: 20px;
+    text-transform: uppercase;
+    color: #519872;
+}
+
+
+/* full-population-totals starts */
+#full-population-totals{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.first-section-totals{
+    background-color: white;
+    border-radius: 2%;
+    box-shadow: 2px 1px 3px rgb(76, 75, 75);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 20px 0px 20px 0px;
+}
+
+.first-section-totals div{
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+}
+
+.first-section-totals div p{
+    margin:0px;
+}
+
+.population-caption{
+    font-size: small;
+}
+
+.amount{
+    font-weight: bolder;
+    font-size: 1.4em;
+}
