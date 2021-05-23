@@ -9,11 +9,12 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 1.2em;
 }
 
 a{
     text-decoration: none;
-    color: #519872;
+    color: #012136;
 }
 
 a:hover{
@@ -26,6 +27,9 @@ a:hover{
     padding: 35px;
     background-color:#F0F2EF;
     border-radius: 1%;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    box-shadow: 1px 2px 5px rgb(189, 186, 186);
 }
 
 
@@ -40,7 +44,7 @@ header{
 #logo{
     /* background-color: red; */
     width: 70%;
-    color: #519872;
+    color: #012136;
     font-size: 1.2em;
 }
 
@@ -62,7 +66,7 @@ nav ul{
 nav  ul li{
     margin-left: 20px;
     text-transform: uppercase;
-    color: #519872;
+    color: #012136;
 }
 
 
@@ -105,7 +109,7 @@ nav  ul li{
 }
 
 .icon-box{
-    background-color: #519872;
+    background-color: #012136;
     width: 50px;
     border-radius: 8px;
     display: flex;
@@ -136,7 +140,7 @@ nav  ul li{
 }
 
 .pie-chart{
-    background-color: #519872;
+    background-color: #012136;
     border-radius: 5px;
     box-shadow: 2px 1px 3px rgb(165, 162, 162);
 }
@@ -145,7 +149,7 @@ nav  ul li{
 #district-population-chart-section{
     height: 60vh;
     background-color: white;
-    margin-top: 20px;
+    margin-top: 25px;
     display: grid;
     grid-template-rows: 20% 80%;
     box-shadow: 1px 2px 5px rgb(136, 133, 133);
@@ -155,11 +159,7 @@ nav  ul li{
 #district-chart-header{
     display: grid;
     grid-template-columns: 2fr 1fr;
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* background-color: yellowgreen; */
     padding:20px;
-   
 }
 
 
@@ -172,7 +172,7 @@ nav  ul li{
     
 }
 
-select{
+#district-chart-header select{
     width: 100%;
     margin-right: 20px;
     height: 50%;
@@ -184,6 +184,92 @@ select{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #519872;
+    background-color: #012136;
     padding: 20px;
+    margin-top: 20px;
+}
+
+
+/* download-section styling starts */
+#download-section{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    height: 15vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #012136;
+    border-radius: 5px;
+    margin-top: 25px;
+    padding: 0px 20px 0px 20px;
+    box-shadow: 1px 2px 5px rgb(136, 133, 133);
+}
+
+#download-section p{
+    color: white;
+}
+
+#download-section div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#download-section #dowload-btn{
+    background-color: white;
+    padding: 5px;
+    height: 60%;
+    width: 80%;
+    border-radius: 5px;
+}
+
+#download-icon{
+    background-color: #012136 ;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+#download-icon img{
+    width: 100%;
+}
+
+/* dohousehold-population styling starts */
+#household-population{
+    height: 60vh;
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 20px;
+}
+
+#number-of-household{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px rgb(136, 133, 133);
+}
+
+#male-n-female-amount{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px rgb(136, 133, 133);
+}
+
+
+
+#household-header{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    /* background-color: sandybrown; */
+}
+
+#household-header select{
+    width: 100%;
+    margin-right: 20px;
+    height: 40px;
+    background-color: #F0F2EF;
+    border: 1px solid #828282;
+    font-size: 1em;
 }
