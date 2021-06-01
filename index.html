@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Census2008</title>
     <link rel="stylesheet" href="./styles/style.css">
-
+    <!-- custom font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <!--usage of chartjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
     <div id="container">
-
-    
-    
         <header>
             <nav>
                 <!-- logo -->
@@ -39,18 +38,18 @@
                         <!-- <p>icon</p> -->
                     </div>
                     <div>
-                        <p class="population-caption">Total Population</p>
-                        <p class="amount">1,300,000</p>
+                        <p class="population-caption">TOTAL POPULATION</p>
+                        <p class="amount" id="total-population">1,300,000</p>
                     </div>
                 </div>
 
                 <div class="first-section-totals">
                     <div class="icon-box">
-                        <img src="./icons/twotone_female_white_48dp.png" alt="female?" class="icon">
+                        <img src="./icons/twotone_female_white_48dp.png" alt="" class="icon">
                     </div>
                     <div>
                         <p class="population-caption">FEMALE</p>
-                        <p class="amount">1,300,000</p>
+                        <p class="amount" id="total-female">1,300,000</p>
                     </div>
                 </div>
 
@@ -60,13 +59,13 @@
                     </div>
                     <div>
                         <p class="population-caption">MALE</p>
-                        <p class="amount">1,300,000</p>
+                        <p class="amount" id="total-male">1,300,000</p>
                     </div>
                 </div>
             </section>
             <section id="county-population-chart-section">
                 <div class="bar-char">
-
+                    <canvas id="myChart" width="100%" height="100%"></canvas>
                 </div>
                 <div class="pie-chart">
 
@@ -144,7 +143,8 @@
 
     </div>
 
-        
+    <script type="text/javascript" src="./script/census.js"></script>
+    <script type="text/javascript" src="./script/script.js"></script>
     
 </body>
 </html>
