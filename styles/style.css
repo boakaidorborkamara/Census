@@ -23,7 +23,7 @@ a:hover{
 
 
 #container{
-    width: 70%;
+    width: 80%;
     /* height: 100%; */
     padding: 35px;
     background-color:#F0F2EF;
@@ -148,13 +148,14 @@ nav  ul li{
 
 /* district-population-chart-section styling starts */
 #district-population-chart-section{
-    height: 60vh;
+    height: 70vh;
     background-color: white;
     margin-top: 25px;
     display: grid;
     grid-template-rows: 20% 80%;
     box-shadow: 1px 2px 5px rgb(136, 133, 133);
     border-radius: 5px;
+    margin-top: 100px;
 }
 
 #district-chart-header{
@@ -209,6 +210,7 @@ nav  ul li{
     color: white;
 }
 
+
 #download-section div{
     display: flex;
     justify-content: center;
@@ -221,6 +223,11 @@ nav  ul li{
     width: 80%;
     border-radius: 5px;
 }
+
+#download-section #dowload-btn:hover{
+    cursor: pointer;
+}
+
 
 #download-icon{
     background-color: #519872 ;
@@ -235,6 +242,10 @@ nav  ul li{
 
 #download-icon img{
     width: 100%;
+}
+
+ h3{
+    color: #519872 ;
 }
 
 /* dohousehold-population styling starts */
