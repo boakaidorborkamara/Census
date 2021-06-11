@@ -10,11 +10,19 @@ let total_male = document.getElementById("total-male");
 
 //Display all the data on the page
 function displayData(){
+    //total female
     let female = getTotalFemale();
+    total_female.innerHTML = female;
+    //total male
     let male = getTotalMale();
-    total_female.innerHTML = male;
-    total_male.innerHTML = female;
+    total_male.innerHTML = male;
+
+    //total population
     total_population.innerHTML = female + male;
+
+    //all counties
+    let all_counties = getCounties();
+    // console.log(all_counties);
 }
 
 //calculate the total amount of female in the entire country
@@ -47,14 +55,42 @@ function getTotalPopulation(amount_of_male, amount_of_female){
 
 //get all the counties in the country
 function getCounties(){
-    let counties = [];
+    let repeated_counties = [];
     census_data.population.forEach((ele)=>{
-        counties.push(ele.county);
+        repeated_counties.push(ele.county);
     })
-    console.log(counties);
+    // console.log(counties);
+    let needed_counties = repeated_counties.reduce(function (accumulator, current_value) {
+        if (accumulator.indexOf(current_value) === -1) {
+          accumulator.push(current_value)
+        }
+        return accumulator
+      }, [])
+
+    return needed_counties;
 }
 
-getCounties();
+function getCountiesPopulation(county_array){
+    let all_counties_population = {};
+    census_data.population.reduce(function(accumulator, current_value){
+
+        if(current_value.county !== all_counties_population[0]){
+            all_counties_population[current_value["county"]] = current_value["male"];
+            // console.log("not equal");
+        }
+        else if(current_value.county === all_counties_population[0])
+        {
+            // all_counties_population[current_value["county"]] += current_value["male"] + current_value["female"];
+            console.log("working");
+        }
+    }, {})
+
+    console.log(all_counties_population);
+}
+
+getCountiesPopulation();
+
+
 
 displayData();
 
@@ -68,10 +104,9 @@ let all_counties_ctx = document.getElementById('all-counties-bar-chart');
 let all_counties_bar_chart = new Chart(all_counties_ctx, {
     type: "bar",
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: getCounties(),
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 45, 12,20],
             backgroundColor: [
                  "#519872"
             ],
@@ -92,14 +127,14 @@ let female_and_male_ctx = document.getElementById("dognut-chart");
 
 //feed chart with data
 let female_and_male_chart = new Chart(female_and_male_ctx, {
-    type: "pie",
+    type: "doughnut",
     data: {
         datasets: [{
             label: '# of Votes',
-            data: [12, 19,],
+            data: [getTotalMale(), getTotalFemale()],
             backgroundColor: [
-                "white",
-                "#519872"
+                "#B1D2C2",
+                "#F0F2EF"
             ]
         }],
         labels: ["Male", "Female"],
@@ -109,7 +144,6 @@ let female_and_male_chart = new Chart(female_and_male_ctx, {
 
 //implementation of district chart
 let district_chart_ctx = document.getElementById('distract-chart');
-console.log(district_chart_ctx);
 
 // feed chart with data
 let district_chart_data = new Chart(district_chart_ctx, {
@@ -149,7 +183,6 @@ let district_chart_data = new Chart(district_chart_ctx, {
 
 //implementation of household population chart
 let household_population_ctx = document.getElementById("household-population-chart");
-console.log("household population", household_population_ctx);
 
 //feed chart with data
 let household_populationh_data = new Chart(household_population_ctx, {

@@ -141,9 +141,10 @@ nav  ul li{
 }
 
 .pie-chart{
-    /* background-color: #519872; */
+    background-color: #519872;
     border-radius: 5px;
     box-shadow: 2px 1px 3px rgb(165, 162, 162);
+    padding: 15px;
 }
 
 /* district-population-chart-section styling starts */
