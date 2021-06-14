@@ -8,21 +8,31 @@ let total_population = document.getElementById("total-population");
 let total_female = document.getElementById("total-female");
 let total_male = document.getElementById("total-male");
 
-//Display all the data on the page
+//A function that display all the data on the page
 function displayData(){
     //total female
-    let female = getTotalFemale();
-    total_female.innerHTML = female;
+    let female_population = getTotalFemale();
+    total_female.innerHTML = female_population;
+
     //total male
-    let male = getTotalMale();
-    total_male.innerHTML = male;
+    let male_population = getTotalMale();
+    total_male.innerHTML = male_population;
 
     //total population
-    total_population.innerHTML = female + male;
+    total_population.innerHTML = getTotalPopulation(female_population, male_population);
 
     //all counties
     let all_counties = getCounties();
-    // console.log(all_counties);
+
+    //counties population
+    let population_of_counties = getCountiesPopulation();
+
+
+    //create and display bar chart for total population per counties
+    createCountiesPopulationChart(all_counties, population_of_counties);
+
+    //create dognut chart for female and male population
+    createFemaleAndMaleDognut(male_population, female_population);
 }
 
 //calculate the total amount of female in the entire country
@@ -48,8 +58,8 @@ function getTotalMale(){
 }
 
 //calculate the total population
-function getTotalPopulation(amount_of_male, amount_of_female){
-    let country_population = amount_of_female + amount_of_female;
+function getTotalPopulation(amount_of_female, amount_of_male){
+    let country_population = amount_of_female + amount_of_male;
     return country_population;
 }
 
@@ -70,77 +80,97 @@ function getCounties(){
     return needed_counties;
 }
 
+//get population of each county
 function getCountiesPopulation(county_array){
     let all_counties_population = {};
-    census_data.population.reduce(function(accumulator, current_value){
-
-        if(current_value.county !== all_counties_population[0]){
-            all_counties_population[current_value["county"]] = current_value["male"];
-            // console.log("not equal");
+    census_data.population.forEach((ele)=>{
+        if(all_counties_population.hasOwnProperty(ele.county) === false){
+            all_counties_population[ele.county] = {
+                male: ele.male,
+                female: ele.female,
+                sum: ele.male + ele.female
+            }
         }
-        else if(current_value.county === all_counties_population[0])
+        else
         {
-            // all_counties_population[current_value["county"]] += current_value["male"] + current_value["female"];
-            console.log("working");
+            all_counties_population[ele.county].male += ele.male;
+            all_counties_population[ele.county].female += ele.female;
+            all_counties_population[ele.county].sum += ele.male + ele.female;
         }
-    }, {})
-
-    console.log(all_counties_population);
+        
+    })
+    
+    return all_counties_population;
 }
 
 getCountiesPopulation();
 
 
+/*Below are functions implementing
+the creation of different charts for
+data visualization */
 
+
+//implemention of population for all counties in the county using bar chart
+function createCountiesPopulationChart(county_names, obj){
+    let all_counties_ctx = document.getElementById('all-counties-bar-chart');
+
+    
+    
+    //feed chart with data
+    let all_counties_bar_chart = new Chart(all_counties_ctx, {
+        type: "bar",
+        data: {
+            labels: county_names,
+            datasets: [{
+                data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 45, 12,20],
+                backgroundColor: [
+                    "#519872"
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+}
+
+
+//implemention of population for all female and male in the country using dognut chart
+function createFemaleAndMaleDognut(population_of_male, population_of_female){
+    let female_and_male_ctx = document.getElementById("dognut-chart");
+
+    //feed chart with data
+    let female_and_male_chart = new Chart(female_and_male_ctx, {
+        type: "doughnut",
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [population_of_male, population_of_female],
+                backgroundColor: [
+                    "#B1D2C2",
+                    "#F0F2EF"
+                ]
+            }],
+            labels: ["Male", "Female"],
+        }
+        
+    })
+}
+
+
+// calling of main function 
 displayData();
 
 
 
 
-//implemention of population for all counties in the county using bar chart
-let all_counties_ctx = document.getElementById('all-counties-bar-chart');
 
-//feed chart with data
-let all_counties_bar_chart = new Chart(all_counties_ctx, {
-    type: "bar",
-    data: {
-        labels: getCounties(),
-        datasets: [{
-            data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 45, 12,20],
-            backgroundColor: [
-                 "#519872"
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-})
-
-//implemention of population for all female and male in the country using dognut chart
-let female_and_male_ctx = document.getElementById("dognut-chart");
-
-//feed chart with data
-let female_and_male_chart = new Chart(female_and_male_ctx, {
-    type: "doughnut",
-    data: {
-        datasets: [{
-            label: '# of Votes',
-            data: [getTotalMale(), getTotalFemale()],
-            backgroundColor: [
-                "#B1D2C2",
-                "#F0F2EF"
-            ]
-        }],
-        labels: ["Male", "Female"],
-    }
-    
-})
 
 //implementation of district chart
 let district_chart_ctx = document.getElementById('distract-chart');
