@@ -38,6 +38,12 @@ function displayData(){
 
     //display district population
     displayDistrictPopulation(all_counties);
+
+    //create bar chart for district population chart
+    createDistrictPopulationChart();
+
+    //create bar chart for household population chart
+    displayHouseholdData()
 }
 
 //calculate the total amount of female in the entire country
@@ -122,9 +128,10 @@ function getSum(county_popu_obj){
 }
 
 
-//display all counties in dropdown menu option
-function diplayCountyInDropdown(counties_arr, parent_text_node){
-    let counties_dropdown = parent_text_node;
+//display district population per county
+function displayDistrictPopulation(county_arr){
+    //add counties to dropdown
+    let counties_dropdown = document.getElementById("county-select-dropdown");
 
     counties_arr.forEach((ele)=>{
         let new_option = document.createElement("option");
@@ -133,30 +140,25 @@ function diplayCountyInDropdown(counties_arr, parent_text_node){
         counties_dropdown.appendChild(new_option);
         // console.log(ele);
     })
-}
 
-//display district population per county
-function displayDistrictPopulation(county_arr){
-    //add counties to dropdown
-    let select_dropdown = document.getElementById("county-select-dropdown");
-    diplayCountyInDropdown(county_arr, select_dropdown);
 
-    let county_district_arr = {};
-    census_data.population.forEach((ele)=>{
-        if(county_district_arr.hasOwnProperty(ele.county) === false){
-            county_district_arr[ele.county] = [ele.district];
-        }
-        else{
-            county_district_arr[ele.county].push(ele.district);
-        }
-    })
+    // let county_district_arr = {};
+    // census_data.population.forEach((ele)=>{
+    //     if(county_district_arr.hasOwnProperty(ele.county) === false){
+    //         county_district_arr[ele.county] = [ele.district];
+    //     }
+    //     else{
+    //         county_district_arr[ele.county].push(ele.district);
+    //     }
+    // })
 
-    console.log(county_district_arr);
+    // console.log(county_district_arr);
     
 
 }
 
 //display household data per population
+/* */
 function displayHouseholdData(){
     let household_population = {};
 
@@ -184,13 +186,8 @@ function displayHouseholdData(){
         }
     })
 
-    console.log(household_population);
+    // console.log(household_population);
 }
-
-displayHouseholdData();
-
-
-
 
 
 
@@ -199,6 +196,8 @@ displayHouseholdData();
 /*Below are functions implementing
 the creation of different charts for
 data visualization */
+
+
 
 
 //implemention of population for all counties in the county using bar chart
@@ -231,7 +230,7 @@ function createCountiesPopulationChart(county_names, arr){
 }
 
 
-//implemention of population for all female and male in the country using dognut chart
+//implementation of population for all female and male in the country using dognut chart
 function createFemaleAndMaleDognut(population_of_male, population_of_female){
     let female_and_male_ctx = document.getElementById("dognut-chart");
 
@@ -253,6 +252,71 @@ function createFemaleAndMaleDognut(population_of_male, population_of_female){
     })
 }
 
+//implementation of District Population Chart
+function createDistrictPopulationChart(){
+    //implementation of district chart
+    let district_chart_ctx = document.getElementById('distract-chart');
+
+    // feed chart with data
+    let district_chart_data = new Chart(district_chart_ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    "#519872"
+                ],
+                borderColor: [
+                    "#F0F2EF"
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+//implementationh of household population
+function createHouseholdPopulationChart (){
+    //implementation of household population chart
+    let household_population_ctx = document.getElementById("household-population-chart");
+
+    //feed chart with data
+    let household_populationh_data = new Chart(household_population_ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    "#519872"
+                ],
+                borderColor: [
+                    "#519872"
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+
 
 // calling of main function 
 displayData();
@@ -262,63 +326,9 @@ displayData();
 
 
 
-//implementation of district chart
-let district_chart_ctx = document.getElementById('distract-chart');
 
-// feed chart with data
-let district_chart_data = new Chart(district_chart_ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                "#519872"
-            ],
-            borderColor: [
-                "#F0F2EF"
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
 
-//implementation of household population chart
-let household_population_ctx = document.getElementById("household-population-chart");
 
-//feed chart with data
-let household_populationh_data = new Chart(household_population_ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                "#519872"
-            ],
-            borderColor: [
-                 "#519872"
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
 
 
 
