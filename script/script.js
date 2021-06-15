@@ -26,10 +26,12 @@ function displayData(){
 
     //counties population
     let population_of_counties = getCountiesPopulation();
-
+   
+    //total of male and female per county
+    let sum = getSum(population_of_counties);
 
     //create and display bar chart for total population per counties
-    createCountiesPopulationChart(all_counties, population_of_counties);
+    createCountiesPopulationChart(all_counties, sum);
 
     //create dognut chart for female and male population
     createFemaleAndMaleDognut(male_population, female_population);
@@ -103,7 +105,21 @@ function getCountiesPopulation(county_array){
     return all_counties_population;
 }
 
-getCountiesPopulation();
+//get sum from county population object
+function getSum(county_popu_obj){
+    let sum_arr = [];
+
+    let obj_arr = Object.values(county_popu_obj);
+
+    obj_arr.forEach((ele)=>{
+        sum_arr.push(ele.sum);
+        console.log(ele.sum);
+    })
+    
+    return sum_arr;
+}
+
+
 
 
 /*Below are functions implementing
@@ -112,7 +128,7 @@ data visualization */
 
 
 //implemention of population for all counties in the county using bar chart
-function createCountiesPopulationChart(county_names, obj){
+function createCountiesPopulationChart(county_names, arr){
     let all_counties_ctx = document.getElementById('all-counties-bar-chart');
 
     
@@ -123,7 +139,7 @@ function createCountiesPopulationChart(county_names, obj){
         data: {
             labels: county_names,
             datasets: [{
-                data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 45, 12,20],
+                data: arr,
                 backgroundColor: [
                     "#519872"
                 ],
