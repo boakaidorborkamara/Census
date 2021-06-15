@@ -1,6 +1,6 @@
 // all the data from the census
 var census_data = data;
-console.log(census_data.population);
+console.log(census_data.households);
 
 
 //targeting html element for data display
@@ -35,6 +35,9 @@ function displayData(){
 
     //create dognut chart for female and male population
     createFemaleAndMaleDognut(male_population, female_population);
+
+    //display district population
+    displayDistrictPopulation(all_counties);
 }
 
 //calculate the total amount of female in the entire country
@@ -113,11 +116,82 @@ function getSum(county_popu_obj){
 
     obj_arr.forEach((ele)=>{
         sum_arr.push(ele.sum);
-        console.log(ele.sum);
     })
     
     return sum_arr;
 }
+
+
+//display all counties in dropdown menu option
+function diplayCountyInDropdown(counties_arr, parent_text_node){
+    let counties_dropdown = parent_text_node;
+
+    counties_arr.forEach((ele)=>{
+        let new_option = document.createElement("option");
+        let option_text = document.createTextNode(ele);
+        new_option.appendChild(option_text);
+        counties_dropdown.appendChild(new_option);
+        // console.log(ele);
+    })
+}
+
+//display district population per county
+function displayDistrictPopulation(county_arr){
+    //add counties to dropdown
+    let select_dropdown = document.getElementById("county-select-dropdown");
+    diplayCountyInDropdown(county_arr, select_dropdown);
+
+    let county_district_arr = {};
+    census_data.population.forEach((ele)=>{
+        if(county_district_arr.hasOwnProperty(ele.county) === false){
+            county_district_arr[ele.county] = [ele.district];
+        }
+        else{
+            county_district_arr[ele.county].push(ele.district);
+        }
+    })
+
+    console.log(county_district_arr);
+    
+
+}
+
+//display household data per population
+function displayHouseholdData(){
+    let household_population = {};
+
+    census_data.households.forEach((ele)=>{
+        if(household_population.hasOwnProperty(ele.county) === false){
+            household_population[ele.county] = {
+                
+            }
+            
+            household_population[ele.county][ele.settlement]={
+                male: ele.male,
+                female: ele.female
+            };
+            // console.log(household_population[ele.county]);
+        }
+        else{
+            household_population[ele.county][ele.settlement]={
+                male: ele.male,
+                female: ele.female
+            };
+
+            // household_population[ele.county][ele.settlement].male + ele.male;
+            // household_population[ele.county][ele.settlement].female_and_male_chart + ele.female;
+            
+        }
+    })
+
+    console.log(household_population);
+}
+
+displayHouseholdData();
+
+
+
+
 
 
 
@@ -200,20 +274,10 @@ let district_chart_data = new Chart(district_chart_ctx, {
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                "#519872"
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                "#F0F2EF"
             ],
             borderWidth: 1
         }]
@@ -239,20 +303,10 @@ let household_populationh_data = new Chart(household_population_ctx, {
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                "#519872"
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                 "#519872"
             ],
             borderWidth: 1
         }]
