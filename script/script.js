@@ -40,7 +40,7 @@ function displayData(){
     displayDistrictPopulation(all_counties);
 
     //create bar chart for district population chart
-    createDistrictPopulationChart();
+    // createHouseholdPopulationChart()
 
     //create bar chart for household population chart
     displayHouseholdData()
@@ -284,8 +284,10 @@ function createDistrictPopulationChart(){
     });
 }
 
+
+
 //implementationh of household population
-function createHouseholdPopulationChart (){
+function createHouseholdPopulationChart(){
     //implementation of household population chart
     let household_population_ctx = document.getElementById("household-population-chart");
 
@@ -315,6 +317,9 @@ function createHouseholdPopulationChart (){
         }
     });
 }
+
+createDistrictPopulationChart();
+createHouseholdPopulationChart();
 
 
 
