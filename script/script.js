@@ -1,5 +1,6 @@
 // all the data from the census
 var census_data = data;
+console.log(census_data.population);
 console.log(census_data.households);
 
 
@@ -129,7 +130,7 @@ function getSum(county_popu_obj){
 
 
 //display district population per county
-function displayDistrictPopulation(county_arr){
+function displayDistrictPopulation(counties_arr){
     //add counties to dropdown
     let counties_dropdown = document.getElementById("county-select-dropdown");
 
@@ -138,21 +139,28 @@ function displayDistrictPopulation(county_arr){
         let option_text = document.createTextNode(ele);
         new_option.appendChild(option_text);
         counties_dropdown.appendChild(new_option);
-        // console.log(ele);
     })
 
+    counties_dropdown.onchange = function(){
+        console.log(counties_dropdown.value);
+    };
 
-    // let county_district_arr = {};
-    // census_data.population.forEach((ele)=>{
-    //     if(county_district_arr.hasOwnProperty(ele.county) === false){
-    //         county_district_arr[ele.county] = [ele.district];
-    //     }
-    //     else{
-    //         county_district_arr[ele.county].push(ele.district);
-    //     }
-    // })
+    
+    
 
-    // console.log(county_district_arr);
+
+    let county_district_arr = {};
+    census_data.population.forEach((ele)=>{
+        if(county_district_arr.hasOwnProperty(ele.county) === false){
+            county_district_arr[ele.county] = {};
+            // county_district_arr[ele.county].push(ele.popu = [])
+        }
+        else{
+            // county_district_arr[ele.county].push(ele.district);
+        }
+    })
+
+    console.log(county_district_arr);
     
 
 }
@@ -196,9 +204,6 @@ function displayHouseholdData(){
 /*Below are functions implementing
 the creation of different charts for
 data visualization */
-
-
-
 
 //implemention of population for all counties in the county using bar chart
 function createCountiesPopulationChart(county_names, arr){
@@ -283,7 +288,6 @@ function createDistrictPopulationChart(){
         }
     });
 }
-
 
 
 //implementationh of household population
