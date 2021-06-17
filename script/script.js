@@ -49,7 +49,7 @@ function displayData(){
     createDistrictPopulationChart(selected_county_districts_data);
 
     //create bar chart for household population chart
-    displayHouseholdData()
+    // displayHouseholdData()
 
     //try
     // selectDistrictBaseOnCountySelected(all_counties, districts_data);
@@ -206,8 +206,8 @@ function selectDistrictBaseOnCountySelected(counties_arr, district_object){
         selected_county = counties_dropdown.value;
         selected_county_district_data = district_object[selected_county];
 
-        console.log(selected_county);
-        console.log(selected_county_district_data);
+        // console.log(selected_county);
+        // console.log(selected_county_district_data);
         return selected_county_district_data;
     };  
 
@@ -218,7 +218,6 @@ function selectDistrictBaseOnCountySelected(counties_arr, district_object){
 
 
 //display household data per population
-/* */
 function displayHouseholdData(){
     let household_population = {};
 
@@ -311,25 +310,45 @@ function createFemaleAndMaleDognut(population_of_male, population_of_female){
 
 //implementation of District Population Chart
 function createDistrictPopulationChart(district_data_object){
+
+    let try_var = district_data_object;
+    console.log(try_var);
+
+    //array for chart dataset usage
+    let district_array = district_data_object["Districts"];
+    let male_array = [];
+    let female_array = [];
+
+    //remove district array from the district data object
+    let data_for_chart_use = district_data_object;
+    delete data_for_chart_use["Districts"];
+
+    //convert the object to and arry
+    data_for_chart_use = Object.values(data_for_chart_use);
+
+    //add values to male and female array
+    for(let i = 0; i < data_for_chart_use.length; i++){
+        male_array.push(data_for_chart_use[i].male);
+        female_array.push(data_for_chart_use[i].female);
+    }
+
     let sample_district_data = district_data_object;
-    console.log(sample_district_data);
-    //implementation of district chart
     let district_chart_ctx = document.getElementById('distract-chart');
 
     // feed chart with data
     let district_chart_data = new Chart(district_chart_ctx, {
         type: 'bar',
         data: {
-          labels: sample_district_data["Districts"],
+          labels: district_array,
           datasets: [
             {
               label: "Male",
               backgroundColor: "#B1D2C2",
-              data: [133,221,783,2478]
+              data: male_array
             }, {
               label: "Female",
               backgroundColor: "#519872",
-              data: [408,547,675,734]
+              data: female_array
             }
           ]
         },
