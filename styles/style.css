@@ -4,7 +4,8 @@
 
 body{
     font-family: 'Source Code Pro' ,'Courier New', Courier, monospace;
-    background-color: #FFFFFF;
+    /* background-color: #FFFFFF; */
+    background-color:#F0F2EF;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,14 +24,14 @@ a:hover{
 
 
 #container{
-    width: 80%;
+    width: 90%;
     /* height: 100%; */
-    padding: 35px;
-    background-color:#F0F2EF;
+    padding: 0px 0px 80px 0px;
+    /* background-color:#F0F2EF; */
     border-radius: 1%;
     margin-bottom: 15px;
-    margin-top: 15px;
-    box-shadow: 1px 2px 5px rgb(189, 186, 186);
+    margin-top: 5px;
+    /* box-shadow: 1px 2px 5px rgb(189, 186, 186); */
 }
 
 
@@ -84,7 +85,7 @@ nav  ul li{
     box-shadow: 2px 1px 3px rgb(76, 75, 75);
     display: flex;
     padding: 20px 0px 20px 0px;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     /* align-items: center; */
 }
 
@@ -116,7 +117,7 @@ nav  ul li{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .icon{
@@ -131,6 +132,7 @@ nav  ul li{
     grid-gap: 13px;
     grid-template-columns: 1fr 1fr 1fr;
     margin-top: 20px;
+    margin-bottom: 190px;
 }
 
 .bar-char{
@@ -138,13 +140,14 @@ nav  ul li{
     grid-column-start: span 2;
     border-radius: 5px;
     box-shadow: 2px 1px 3px rgb(76, 75, 75);
+    padding: 20px;
 }
 
 .pie-chart{
     background-color: #519872;
     border-radius: 5px;
     box-shadow: 2px 1px 3px rgb(165, 162, 162);
-    padding: 15px;
+    padding: 20px;
 }
 
 /* district-population-chart-section styling starts */

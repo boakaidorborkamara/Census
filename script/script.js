@@ -11,16 +11,17 @@ let total_male = document.getElementById("total-male");
 
 //A function that display all the data on the page
 function displayData(){
-    //total female
+    //display total female in html
     let female_population = getTotalFemale();
-    total_female.innerHTML = female_population;
+    total_female.innerHTML = new Intl.NumberFormat().format(female_population);
 
-    //total male
+    //display total male in html
     let male_population = getTotalMale();
-    total_male.innerHTML = male_population;
+    total_male.innerHTML = new Intl.NumberFormat().format(male_population);
 
-    //total population
-    total_population.innerHTML = getTotalPopulation(female_population, male_population);
+    //display total population in html
+    let country_population = getTotalPopulation(female_population, male_population);
+    total_population.innerHTML = new Intl.NumberFormat().format(country_population);
 
     //all counties
     let all_counties = getCounties();
@@ -37,14 +38,21 @@ function displayData(){
     //create dognut chart for female and male population
     createFemaleAndMaleDognut(male_population, female_population);
 
-    //display district population
-    displayDistrictPopulation(all_counties);
+    //data of districts for each county
+    let districts_data = getDistrictDetails();
+
+    //details of a districts from selected county
+    let selected_county_districts_data = selectDistrictBaseOnCountySelected(all_counties, districts_data);
+    console.log(selected_county_districts_data["Districts"]);
 
     //create bar chart for district population chart
-    // createHouseholdPopulationChart()
+    createDistrictPopulationChart(selected_county_districts_data);
 
     //create bar chart for household population chart
     displayHouseholdData()
+
+    //try
+    // selectDistrictBaseOnCountySelected(all_counties, districts_data);
 }
 
 //calculate the total amount of female in the entire country
@@ -128,42 +136,86 @@ function getSum(county_popu_obj){
     return sum_arr;
 }
 
-
-//display district population per county
-function displayDistrictPopulation(counties_arr){
-    //add counties to dropdown
-    let counties_dropdown = document.getElementById("county-select-dropdown");
-
-    counties_arr.forEach((ele)=>{
-        let new_option = document.createElement("option");
-        let option_text = document.createTextNode(ele);
-        new_option.appendChild(option_text);
-        counties_dropdown.appendChild(new_option);
-    })
-
-    counties_dropdown.onchange = function(){
-        console.log(counties_dropdown.value);
-    };
-
-    
-    
-
+//get all the counties district details
+function getDistrictDetails(){
 
     let county_district_arr = {};
+
     census_data.population.forEach((ele)=>{
         if(county_district_arr.hasOwnProperty(ele.county) === false){
             county_district_arr[ele.county] = {};
-            // county_district_arr[ele.county].push(ele.popu = [])
+            county_district_arr[ele.county][ele.district] = {
+                male: ele.male,
+                female: ele.female
+            };
+           
+            county_district_arr[ele.county]["Districts"] = [
+                ele.district
+            ];
+
+            
         }
         else{
-            // county_district_arr[ele.county].push(ele.district);
+            county_district_arr[ele.county][ele.district] = {
+                male: ele.male,
+                female: ele.female
+            };
+            
+            county_district_arr[ele.county]["Districts"].push(ele.district);
         }
     })
 
-    console.log(county_district_arr);
+    return county_district_arr;
+}
+
+
+//accept all counties and create a dropdown menu
+function createCountiesDropdown(array_of_counties, parent_text_node){
+    //add counties to dropdown
+    let counties_dropdown = parent_text_node;
+
+    //create new options in the dropdown menu base on the counties array length
+    array_of_counties.forEach((ele)=>{
+        let new_option = document.createElement("option");
+        let option_text = document.createTextNode(ele);
+        let options_attribute = document.createAttribute("value");
+        options_attribute.value = ele;
+        new_option.setAttributeNode(options_attribute);
+        new_option.appendChild(option_text);
+        counties_dropdown.appendChild(new_option);
+    })
+}
+
+//select all the districts and details of a selected counties
+function selectDistrictBaseOnCountySelected(counties_arr, district_object){
+    //create dropdown menu
+    let counties_dropdown = document.getElementById("county-select-dropdown");
+    createCountiesDropdown(counties_arr, counties_dropdown);
+
+    //default selected county
+    selected_county = "Bomi";
+    // console.log(selected_county);
     
 
+     //variable to store districts details for a selected county
+     let selected_county_district_data;
+     selected_county_district_data = district_object[selected_county];
+
+    //select a dropdown option when clicked
+    counties_dropdown.onchange = function(){
+        selected_county = counties_dropdown.value;
+        selected_county_district_data = district_object[selected_county];
+
+        console.log(selected_county);
+        console.log(selected_county_district_data);
+        return selected_county_district_data;
+    };  
+
+    // console.log(selected_county_district_data);
+    return selected_county_district_data;
 }
+
+
 
 //display household data per population
 /* */
@@ -258,7 +310,9 @@ function createFemaleAndMaleDognut(population_of_male, population_of_female){
 }
 
 //implementation of District Population Chart
-function createDistrictPopulationChart(){
+function createDistrictPopulationChart(district_data_object){
+    let sample_district_data = district_data_object;
+    console.log(sample_district_data);
     //implementation of district chart
     let district_chart_ctx = document.getElementById('distract-chart');
 
@@ -266,25 +320,24 @@ function createDistrictPopulationChart(){
     let district_chart_data = new Chart(district_chart_ctx, {
         type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    "#519872"
-                ],
-                borderColor: [
-                    "#F0F2EF"
-                ],
-                borderWidth: 1
-            }]
+          labels: sample_district_data["Districts"],
+          datasets: [
+            {
+              label: "Male",
+              backgroundColor: "#B1D2C2",
+              data: [133,221,783,2478]
+            }, {
+              label: "Female",
+              backgroundColor: "#519872",
+              data: [408,547,675,734]
+            }
+          ]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+          title: {
+            display: true,
+            text: 'Population growth (millions)'
+          }
         }
     });
 }
@@ -322,7 +375,7 @@ function createHouseholdPopulationChart(){
     });
 }
 
-createDistrictPopulationChart();
+// createDistrictPopulationChart();
 createHouseholdPopulationChart();
 
 
