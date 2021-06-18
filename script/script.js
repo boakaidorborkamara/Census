@@ -136,6 +136,23 @@ function getSum(county_popu_obj){
     return sum_arr;
 }
 
+//accept all counties and create a dropdown menu
+function createCountiesDropdown(array_of_counties, parent_text_node){
+    //add counties to dropdown
+    let counties_dropdown = parent_text_node;
+
+    //create new options in the dropdown menu base on the counties array length
+    array_of_counties.forEach((ele)=>{
+        let new_option = document.createElement("option");
+        let option_text = document.createTextNode(ele);
+        let options_attribute = document.createAttribute("value");
+        options_attribute.value = ele;
+        new_option.setAttributeNode(options_attribute);
+        new_option.appendChild(option_text);
+        counties_dropdown.appendChild(new_option);
+    })
+}
+
 //get all the counties district details
 function getDistrictDetails(){
 
@@ -166,24 +183,6 @@ function getDistrictDetails(){
     })
 
     return county_district_arr;
-}
-
-
-//accept all counties and create a dropdown menu
-function createCountiesDropdown(array_of_counties, parent_text_node){
-    //add counties to dropdown
-    let counties_dropdown = parent_text_node;
-
-    //create new options in the dropdown menu base on the counties array length
-    array_of_counties.forEach((ele)=>{
-        let new_option = document.createElement("option");
-        let option_text = document.createTextNode(ele);
-        let options_attribute = document.createAttribute("value");
-        options_attribute.value = ele;
-        new_option.setAttributeNode(options_attribute);
-        new_option.appendChild(option_text);
-        counties_dropdown.appendChild(new_option);
-    })
 }
 
 //select all the districts and details of a selected counties
@@ -243,16 +242,31 @@ function getHouseDetails(){
 
 }
 
-
 //select all the household data and details of a selected counties
-function selectHouseholdDataBaseOnCountySelected(all_counties_arr){
+function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_object){
     // create all counties dropdown menu
     let household_dropdown = document.getElementById("house-hold-dropdown");
     createCountiesDropdown(all_counties_arr, household_dropdown);
     
      //default selected county
-     selected_county = "Bomi";
+     let selected_county_in_household_dropdown = "Bomi";
      // console.log(selected_county);
+
+    //variable to store districts details for a selected county
+    selected_county_household_data = household_object[selected_county_in_household_dropdown];
+
+    // //select a dropdown option when clicked
+    // counties_dropdown.onchange = function(){
+    //     selected_county = counties_dropdown.value;
+    //     selected_county_district_data = district_object[selected_county];
+
+    //     // console.log(selected_county);
+    //     // console.log(selected_county_district_data);
+    //     return selected_county_district_data;
+    // };  
+
+    console.log(selected_county_district_data);
+    return selected_county_district_data;
 
 }
 
