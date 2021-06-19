@@ -274,9 +274,22 @@ function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_obj
 
 }
 
+function getCountiesWithMostMaleAndFemale(){
+    let all_counties_male_and_female_obj = {};
+    census_data.population.forEach((ele)=>{
+        if(all_counties_male_and_female_obj.hasOwnProperty(ele.county) === false){
+            all_counties_male_and_female_obj[ele.county] = {};
+        }
+    })
+
+    console.log("male and female obj", all_counties_male_and_female_obj);
+}
+
+getCountiesWithMostMaleAndFemale();
 
 
-/*Below are functions implementingthe creation of different charts for
+
+/*Below are functions implementing the creation of different charts for
 data visualization */
 
 
