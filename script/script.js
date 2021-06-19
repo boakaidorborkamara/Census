@@ -38,7 +38,7 @@ function displayData(){
     //create dognut chart for female and male population
     createFemaleAndMaleDognut(male_population, female_population);
 
-    //data of districts for each county
+    //data of districts for all counties
     let districts_data = getDistrictDetails();
 
     //details of a districts from selected county
@@ -48,11 +48,15 @@ function displayData(){
     //create bar chart for district population chart
     createDistrictPopulationChart(selected_county_districts_data);
 
-    //details of household from selected county
-    selectHouseholdDataBaseOnCountySelected(all_counties);
+    //data of household for all counties
+    let households_data = getHouseholdDetails();
+
+    // details of household from selected county
+    let selected_county_household_data =  selectHouseholdDataBaseOnCountySelected(all_counties, households_data);
+    console.log(selected_county_household_data);
 
     //create bar chart for household population chart
-    // displayHouseholdData()
+    createHouseholdPopulationChart(selected_county_household_data);
 }
 
 //calculate the total amount of female in the entire country
@@ -214,7 +218,7 @@ function selectDistrictBaseOnCountySelected(counties_arr, district_object){
 }
 
 //get household data for all counties
-function getHouseDetails(){
+function getHouseholdDetails(){
 
     let household_population_data = {};
 
@@ -253,30 +257,29 @@ function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_obj
      // console.log(selected_county);
 
     //variable to store districts details for a selected county
-    selected_county_household_data = household_object[selected_county_in_household_dropdown];
+    let selected_county_household_data = household_object[selected_county_in_household_dropdown];
 
-    // //select a dropdown option when clicked
-    // counties_dropdown.onchange = function(){
-    //     selected_county = counties_dropdown.value;
-    //     selected_county_district_data = district_object[selected_county];
+    //select a dropdown option when clicked
+    household_dropdown.onchange = function(){
+        selected_county_in_household_dropdown = household_dropdown.value;
+        selected_county_household_data = household_object[selected_county_in_household_dropdown];
 
-    //     // console.log(selected_county);
-    //     // console.log(selected_county_district_data);
-    //     return selected_county_district_data;
-    // };  
+        // console.log(selected_county_in_household_dropdown);
+        // console.log(selected_county_household_data);
+        return selected_county_household_data;
+    };  
 
-    console.log(selected_county_district_data);
-    return selected_county_district_data;
+    console.log(selected_county_household_data);
+    return selected_county_household_data;
 
 }
 
 
 
-
-
-/*Below are functions implementing
-the creation of different charts for
+/*Below are functions implementingthe creation of different charts for
 data visualization */
+
+
 
 //implemention of population for all counties in the county using bar chart
 function createCountiesPopulationChart(county_names, arr){
@@ -385,7 +388,25 @@ function createDistrictPopulationChart(district_data_object){
 
 
 //implementationh of household population
-function createHouseholdPopulationChart(county_names, arr){
+function createHouseholdPopulationChart(selected_county_household_data_obj){
+
+    //array for chart dataset usage
+    let settlement_array = Object.keys(selected_county_household_data_obj);
+    let household_male_array = [];
+    let household_female_array = [];
+    let household_number_array = [];
+
+    //convert the object to and arry
+    let data_to_display_in_chart = Object.values(selected_county_household_data_obj);
+    console.log(data_to_display_in_chart);
+
+    // add values to male and female array
+    for(let i = 0; i < data_to_display_in_chart.length; i++){
+        household_male_array.push(data_to_display_in_chart[i].male);
+        household_female_array.push(data_to_display_in_chart[i].female);
+        household_number_array.push(data_to_display_in_chart[i].household_number);
+    }
+
     //implementation of household population chart
     let household_population_ctx = document.getElementById("household-population-chart");
 
@@ -393,21 +414,21 @@ function createHouseholdPopulationChart(county_names, arr){
     let household_populationh_data = new Chart(household_population_ctx, {
         type: 'bar',
         data: {
-          labels: ["1900", "1950", "1999", "2050"],
+          labels: settlement_array,
           datasets: [
             {
               label: "Male",
               backgroundColor: "#519872",
-              data: [133,221,783,2478]
+              data: household_male_array
             }, {
               label: "Female",
               backgroundColor: "#B1D2C2",
-              data: [408,547,675,734]
+              data: household_female_array
             },
             {
                 label: "Household Number",
                 backgroundColor: "#2E3138",
-                data: [408,547,675,734]
+                data: household_number_array
               }
           ]
         },
@@ -420,8 +441,6 @@ function createHouseholdPopulationChart(county_names, arr){
     });
 }
 
-// createDistrictPopulationChart();
-createHouseholdPopulationChart();
 
 
 
