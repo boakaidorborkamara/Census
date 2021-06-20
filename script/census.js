@@ -505,7 +505,7 @@ data = {
 			"female": 16519
 		},
 		{
-			"county": "Nimba ",
+			"county": "Nimba",
 			"district": "Boe & Quilla",
 			"male": 9163,
 			"female": 9099
@@ -715,13 +715,13 @@ data = {
 			"female": 2372
 		},
 		{
-			"county": "Sinoe ",
+			"county": "Sinoe",
 			"district": "Bodae ",
 			"male": 2151,
 			"female": 1388
 		},
 		{
-			"county": "Sinoe ",
+			"county": "Sinoe",
 			"district": "Bokon ",
 			"male": 2457,
 			"female": 1916

@@ -1,13 +1,16 @@
 // all the data from the census
 var census_data = data;
-console.log(census_data.population);
-console.log(census_data.households);
+// console.log(census_data.population);
+// console.log(census_data.households);
 
 
 //targeting html element for data display
 let total_population = document.getElementById("total-population");
 let total_female = document.getElementById("total-female");
 let total_male = document.getElementById("total-male");
+let counties_dropdown = document.getElementById("county-select-dropdown");
+let household_dropdown = document.getElementById("house-hold-dropdown");
+
 
 //A function that display all the data on the page by calling other functions
 function displayData(){
@@ -46,14 +49,14 @@ function displayData(){
     // console.log(selected_county_districts_data);
 
     //create bar chart for district population chart
-    createDistrictPopulationChart(selected_county_districts_data);
+    // createDistrictPopulationChart(selected_county_districts_data);
 
     //data of household for all counties
     let households_data = getHouseholdDetails();
 
     // details of household from selected county
     let selected_county_household_data =  selectHouseholdDataBaseOnCountySelected(all_counties, households_data);
-    console.log(selected_county_household_data);
+    // console.log(selected_county_household_data);
 
     //create bar chart for household population chart
     createHouseholdPopulationChart(selected_county_household_data);
@@ -192,11 +195,10 @@ function getDistrictDetails(){
 //select all the districts and details of a selected counties
 function selectDistrictBaseOnCountySelected(counties_arr, district_object){
     //create dropdown menu
-    let counties_dropdown = document.getElementById("county-select-dropdown");
     createCountiesDropdown(counties_arr, counties_dropdown);
 
     //default selected county
-    selected_county = "Bomi";
+    selected_county = "Bong";
     // console.log(selected_county);
     
 
@@ -208,11 +210,12 @@ function selectDistrictBaseOnCountySelected(counties_arr, district_object){
         selected_county = counties_dropdown.value;
         selected_county_district_data = district_object[selected_county];
 
-        // console.log(selected_county);
-        // console.log(selected_county_district_data);
+        console.log(selected_county);
+        console.log(selected_county_district_data);
         return selected_county_district_data;
     };  
 
+    createDistrictPopulationChart(selected_county_district_data)
     // console.log(selected_county_district_data);
     return selected_county_district_data;
 }
@@ -249,7 +252,6 @@ function getHouseholdDetails(){
 //select all the household data and details of a selected counties
 function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_object){
     // create all counties dropdown menu
-    let household_dropdown = document.getElementById("house-hold-dropdown");
     createCountiesDropdown(all_counties_arr, household_dropdown);
     
      //default selected county
@@ -264,12 +266,12 @@ function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_obj
         selected_county_in_household_dropdown = household_dropdown.value;
         selected_county_household_data = household_object[selected_county_in_household_dropdown];
 
-        // console.log(selected_county_in_household_dropdown);
-        // console.log(selected_county_household_data);
+        console.log(selected_county_in_household_dropdown);
+        console.log(selected_county_household_data);
         return selected_county_household_data;
     };  
 
-    console.log(selected_county_household_data);
+    // console.log(selected_county_household_data);
     return selected_county_household_data;
 
 }
@@ -278,14 +280,32 @@ function getCountiesWithMostMaleAndFemale(){
     let all_counties_male_and_female_obj = {};
     census_data.population.forEach((ele)=>{
         if(all_counties_male_and_female_obj.hasOwnProperty(ele.county) === false){
-            all_counties_male_and_female_obj[ele.county] = {};
+            all_counties_male_and_female_obj[ele.county] = {
+                male: ele.male,
+                female: ele.female
+            };
+            
         }
     })
 
-    console.log("male and female obj", all_counties_male_and_female_obj);
+    console.log("counties male and female", "male and female obj", all_counties_male_and_female_obj);
 }
 
-getCountiesWithMostMaleAndFemale();
+//Update the data in a chart base on a selected county
+// function updateChartData(chart_name, label, data){
+//     chart_name.data["labels"] = label;
+//     chart_name.data.datasets.forEach((dataset) => {
+//         dataset.data = data;
+//     });
+//     chart.update();
+// }
+
+counties_dropdown.onchange = function(){
+    console.log(counties_dropdown.value);
+    console.log("working");
+}
+
+// getCountiesWithMostMaleAndFemale();
 
 
 
@@ -397,6 +417,8 @@ function createDistrictPopulationChart(district_data_object){
           }
         }
     });
+
+    // updateChartData(district_chart_ctx, ["try1", "try2", "try3", "try4"], [23,55,643, 563,23, 58]);
 }
 
 
@@ -409,9 +431,9 @@ function createHouseholdPopulationChart(selected_county_household_data_obj){
     let household_female_array = [];
     let household_number_array = [];
 
-    //convert the object to and arry
+    //convert the object to and array
     let data_to_display_in_chart = Object.values(selected_county_household_data_obj);
-    console.log(data_to_display_in_chart);
+    // console.log(data_to_display_in_chart);
 
     // add values to male and female array
     for(let i = 0; i < data_to_display_in_chart.length; i++){
