@@ -49,7 +49,7 @@ function displayData(){
     // console.log(selected_county_districts_data);
 
     //create bar chart for district population chart
-    createDistrictPopulationChart(selected_county_districts_data);
+    // createDistrictPopulationChart(selected_county_districts_data);
 
     //data of household for all counties
     let households_data = getHouseholdDetails();
@@ -59,7 +59,7 @@ function displayData(){
     // console.log(selected_county_household_data);
 
     //create bar chart for household population chart
-    createHouseholdPopulationChart(selected_county_household_data);
+    // createHouseholdPopulationChart(selected_county_household_data);
 }
 
 //calculate the total amount of female in the entire country
@@ -218,6 +218,7 @@ function selectDistrictBaseOnCountySelected(counties_arr, district_object){
         return selected_county_district_data;
     };  
 
+    createDistrictPopulationChart(selected_county_district_data);
     // console.log(selected_county_district_data);
     return selected_county_district_data;
 }
@@ -276,6 +277,7 @@ function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_obj
         return selected_county_household_data;
     };  
 
+    createHouseholdPopulationChart(selected_county_household_data);
     // console.log(selected_county_household_data);
     return selected_county_household_data;
 
