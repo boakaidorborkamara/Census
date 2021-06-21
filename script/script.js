@@ -10,6 +10,7 @@ let total_female = document.getElementById("total-female");
 let total_male = document.getElementById("total-male");
 let district_chart_ctx = document.getElementById('distract-chart');
 let district_chart_data;
+let household_populationh_data;
 
 //A function that display all the data on the page by calling other functions
 function displayData(){
@@ -269,7 +270,9 @@ function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_obj
         selected_county_household_data = household_object[selected_county_in_household_dropdown];
 
         // console.log(selected_county_in_household_dropdown);
-        // console.log(selected_county_household_data);
+        console.log(selected_county_household_data);
+        household_populationh_data.destroy();
+        createHouseholdPopulationChart(selected_county_household_data);
         return selected_county_household_data;
     };  
 
@@ -441,7 +444,7 @@ function createHouseholdPopulationChart(selected_county_household_data_obj){
     let household_population_ctx = document.getElementById("household-population-chart");
 
     //feed chart with data
-    let household_populationh_data = new Chart(household_population_ctx, {
+    household_populationh_data = new Chart(household_population_ctx, {
         type: 'bar',
         data: {
           labels: settlement_array,
