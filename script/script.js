@@ -8,9 +8,8 @@ var census_data = data;
 let total_population = document.getElementById("total-population");
 let total_female = document.getElementById("total-female");
 let total_male = document.getElementById("total-male");
-let counties_dropdown = document.getElementById("county-select-dropdown");
-let household_dropdown = document.getElementById("house-hold-dropdown");
-
+let district_chart_ctx = document.getElementById('distract-chart');
+let district_chart_data;
 
 //A function that display all the data on the page by calling other functions
 function displayData(){
@@ -49,7 +48,7 @@ function displayData(){
     // console.log(selected_county_districts_data);
 
     //create bar chart for district population chart
-    // createDistrictPopulationChart(selected_county_districts_data);
+    createDistrictPopulationChart(selected_county_districts_data);
 
     //data of household for all counties
     let households_data = getHouseholdDetails();
@@ -195,10 +194,11 @@ function getDistrictDetails(){
 //select all the districts and details of a selected counties
 function selectDistrictBaseOnCountySelected(counties_arr, district_object){
     //create dropdown menu
+    let counties_dropdown = document.getElementById("county-select-dropdown");
     createCountiesDropdown(counties_arr, counties_dropdown);
 
     //default selected county
-    selected_county = "Bong";
+    selected_county = "Bomi";
     // console.log(selected_county);
     
 
@@ -210,12 +210,13 @@ function selectDistrictBaseOnCountySelected(counties_arr, district_object){
         selected_county = counties_dropdown.value;
         selected_county_district_data = district_object[selected_county];
 
-        console.log(selected_county);
+        // console.log(selected_county);
         console.log(selected_county_district_data);
+        district_chart_data.destroy();
+        createDistrictPopulationChart(selected_county_district_data);
         return selected_county_district_data;
     };  
 
-    createDistrictPopulationChart(selected_county_district_data)
     // console.log(selected_county_district_data);
     return selected_county_district_data;
 }
@@ -252,6 +253,7 @@ function getHouseholdDetails(){
 //select all the household data and details of a selected counties
 function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_object){
     // create all counties dropdown menu
+    let household_dropdown = document.getElementById("house-hold-dropdown");
     createCountiesDropdown(all_counties_arr, household_dropdown);
     
      //default selected county
@@ -266,8 +268,8 @@ function selectHouseholdDataBaseOnCountySelected(all_counties_arr, household_obj
         selected_county_in_household_dropdown = household_dropdown.value;
         selected_county_household_data = household_object[selected_county_in_household_dropdown];
 
-        console.log(selected_county_in_household_dropdown);
-        console.log(selected_county_household_data);
+        // console.log(selected_county_in_household_dropdown);
+        // console.log(selected_county_household_data);
         return selected_county_household_data;
     };  
 
@@ -292,18 +294,13 @@ function getCountiesWithMostMaleAndFemale(){
 }
 
 //Update the data in a chart base on a selected county
-// function updateChartData(chart_name, label, data){
-//     chart_name.data["labels"] = label;
-//     chart_name.data.datasets.forEach((dataset) => {
-//         dataset.data = data;
+// function updateChartData(chart, label, data){
+//     chart.data.labels.push(label);
+//     chart.data.datasets.forEach((dataset) => {
+//         dataset.data.push(data);
 //     });
 //     chart.update();
 // }
-
-counties_dropdown.onchange = function(){
-    console.log(counties_dropdown.value);
-    console.log("working");
-}
 
 // getCountiesWithMostMaleAndFemale();
 
@@ -391,10 +388,10 @@ function createDistrictPopulationChart(district_data_object){
         female_array.push(data_for_chart_use[i].female);
     }
 
-    let district_chart_ctx = document.getElementById('distract-chart');
+    
 
     // feed chart with data
-    let district_chart_data = new Chart(district_chart_ctx, {
+    district_chart_data = new Chart(district_chart_ctx, {
         type: 'bar',
         data: {
           labels: district_array,
@@ -417,8 +414,6 @@ function createDistrictPopulationChart(district_data_object){
           }
         }
     });
-
-    // updateChartData(district_chart_ctx, ["try1", "try2", "try3", "try4"], [23,55,643, 563,23, 58]);
 }
 
 
